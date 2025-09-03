@@ -385,9 +385,10 @@ h4 {
         max-width: 400px;
     }
     .catalogue-topbar {
+        flex-wrap: wrap;
         flex-direction: column;
         gap: 1em;
-    }s
+    }
     .catalogue-categories {
         flex-wrap: wrap;
         justify-content: center;
@@ -402,7 +403,7 @@ h4 {
     }
 }
 @media (max-width: 900px) {
-    .product-grid {
+        .product-grid {flex-wrap: wrap;
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -426,7 +427,9 @@ h4 {
     background: transparent;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    scroll-padding-left: 0; /* Ajouté pour que le scroll commence bien au début */
 }
+
 .catalogue-categories::-webkit-scrollbar {
     display: none;
 }
@@ -450,4 +453,12 @@ h4 {
         min-width: unset;
         margin-left: 0;
     }
+}
+
+.catalogue-categories a:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: #55BDC6 !important;
+  color: #fff !important;
 }

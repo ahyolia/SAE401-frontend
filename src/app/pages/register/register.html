@@ -1,1 +1,59 @@
-<p>register works!</p>
+<div class="inscription-hero">
+  <div class="inscription-avatar">
+    <img src="/images/user.png" alt="Avatar">
+  </div>
+  <div class="inscription-title" style="text-align:center; width:100%;">Inscription</div>
+</div>
+
+<div class="inscription-section">
+  <div *ngIf="errorMsg" class="alert" id="alert-msg">{{ errorMsg }}</div>
+  <div *ngIf="successMsg" class="alert" id="alert-msg">{{ successMsg }}</div>
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <label>Vous êtes :</label>
+    <div class="role-choice-group">
+      <label>
+        <input type="radio" name="role" value="etudiant" [(ngModel)]="role" (change)="onRoleChange('etudiant')" required>
+        Étudiant
+      </label>
+      <label>
+        <input type="radio" name="role" value="particulier" [(ngModel)]="role" (change)="onRoleChange('particulier')" required>
+        Particulier
+      </label>
+    </div>
+
+    <div *ngIf="role === 'etudiant'" id="etudiant-fields">
+      <label>Numéro étudiant :</label>
+      <input type="text" name="numero_etudiant" [(ngModel)]="numero_etudiant">
+      <label>Nom :</label>
+      <input type="text" name="nom" [(ngModel)]="nom">
+      <label>Prénom :</label>
+      <input type="text" name="prenom" [(ngModel)]="prenom">
+      <label>Email :</label>
+      <input type="email" name="email_etudiant" [(ngModel)]="email_etudiant">
+      <label>Mot de passe :</label>
+      <input type="password" name="password_etudiant" [(ngModel)]="password_etudiant" required>
+      <label class="adhesion-checkbox">
+        <input type="checkbox" name="adherent" [(ngModel)]="adherent">
+        Je souhaite être adhérent (200 F/an)
+      </label>
+    </div>
+
+    <div *ngIf="role === 'particulier'" id="particulier-fields">
+      <label>Nom :</label>
+      <input type="text" name="nom_particulier" [(ngModel)]="nom_particulier">
+      <label>Prénom :</label>
+      <input type="text" name="prenom_particulier" [(ngModel)]="prenom_particulier">
+      <label>Email :</label>
+      <input type="email" name="email_particulier" [(ngModel)]="email_particulier">
+      <label>Mot de passe :</label>
+      <input type="password" name="password_particulier" [(ngModel)]="password_particulier" required>
+    </div>
+    <div style="display: flex; justify-content: center; margin-top: 1.5em;">
+      <button type="submit" class="btn-activation" [disabled]="loading">S'inscrire</button>
+    </div>
+  </form>
+
+  <div class="inscription-links">
+    Déjà un compte ? <a href="/login">Se connecter</a>
+  </div>
+</div>
