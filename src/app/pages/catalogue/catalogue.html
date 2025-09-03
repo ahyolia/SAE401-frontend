@@ -1,6 +1,21 @@
 <div class="cata">
-  <h1>Catalogue</h1>
-  <p>Découvrez tous les produits disponibles à l’EPISE.</p>
+  <h1>Magasin</h1>
+  <p>
+    Les étudiants adhérents peuvent réserver jusqu'à <strong>5 produits</strong> et <strong>2 paniers par semaine</strong>, dans la limite des ressources disponibles.
+  </p>
+
+  <!-- Barre de recherche -->
+  <form class="catalogue-search" (submit)="onSearch($event)">
+    <input
+      type="text"
+      id="search-input"
+      name="search"
+      [(ngModel)]="searchTerm"
+      placeholder="Rechercher un produit..."
+      required
+      />
+    <button type="submit" id="search-btn"><i class="fas fa-search"></i></button>
+  </form>
 
   <div *ngIf="loading">Chargement...</div>
   <div *ngIf="error">{{ error }}</div>
@@ -8,29 +23,34 @@
   <div *ngIf="data">
     <div class="catalogue-categories">
       <a
-        *ngFor="let cat of data.categories"
-        [class.active]="selectedCategory == cat.id"
-        (click)="filterByCategory(cat.id)"
-        href="#"
+        [class.active]="selectedCategory === 'all'"
+        (click)="filterByCategory('all')"
       >
-        {{ cat.name }}
+        Tout
       </a>
       <a
-        [class.active]="selectedCategory == 'all'"
-        (click)="filterByCategory('all')"
-        href="#"
+        *ngFor="let cat of data?.categories"
+        [class.active]="selectedCategory === cat.id.toString()"
+        (click)="filterByCategory(cat.id)"
       >
-        Tous
+        {{ cat.name }}
       </a>
     </div>
 
     <div class="product-grid">
-      <div class="product-card" *ngFor="let produit of data?.produits">
+      <div
+        class="product-card"
+        *ngFor="let produit of filteredProduits()"
+      >
         <img [src]="produit.image" alt="{{ produit.name }}" class="product-image" />
         <h4>{{ produit.name }}</h4>
         <p>{{ produit.description }}</p>
         <div class="stock">Stock : {{ produit.stock }}</div>
-        <div class="category">{{ produit.category_name }}</div>
+        <div class="quantity-controls">
+          <button class="quantity-btn" (click)="decrementQuantity(produit.id)">-</button>
+          <span class="quantity">{{ getQuantity(produit.id) }}</span>
+          <button class="quantity-btn" (click)="incrementQuantity(produit.id, produit.stock)">+</button>
+        </div>
         <button class="add-to-cart" (click)="onAddToCart(produit)">
           Ajouter au panier
         </button>
