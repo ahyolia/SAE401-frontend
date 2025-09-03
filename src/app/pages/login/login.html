@@ -1,1 +1,24 @@
-<p>login works!</p>
+<div class="connexion-hero">
+  <div class="connexion-avatar">
+    <img src="assets/images/user.png" alt="Avatar">
+  </div>
+  <div class="connexion-title">Connexion</div>
+</div>
+
+<div class="connexion-section">
+  <div *ngIf="errorMsg" class="alert" id="alert-msg">{{ errorMsg }}</div>
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <label for="login">Nom d'utilisateur ou adresse mail :</label>
+    <input type="text" id="login" name="login" [(ngModel)]="login" required>
+    <label for="password">Mot de passe :</label>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <input type="password" id="password" name="password" [(ngModel)]="password" required style="width: 100%;">
+      <button type="submit" [disabled]="loading" style="width: 60%;">Se connecter</button>
+    </div>
+  </form>
+  <div class="connexion-links">
+    <a routerLink="/users/register">Créer un compte</a>
+    &nbsp;|&nbsp;
+    <a routerLink="/users/forgot">Mot de passe oublié ?</a>
+  </div>
+</div>
