@@ -1,0 +1,35 @@
+<header>
+  <div class="header-left" style="display:flex;align-items:center;gap:2em;">
+    <a href="/" class="logo">
+      <img src="/images/epise_logo.png" alt="Logo de l'ÉPISE" />
+    </a>
+    <span *ngIf="userPrenom" class="nav-user" style="color:#55BDC6;font-weight:600;font-size:1.25em;">
+      Bonjour {{ userPrenom }} !
+    </span>
+  </div>
+  <button id="burger-btn" class="burger" aria-label="Menu">
+    <i class="fas fa-bars"></i>
+  </button>
+  <nav id="main-nav" class="layout-nav">
+    <ul>
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/apropos">À propos</a></li>
+      <li><a href="/catalogue">Magasin</a></li>
+      <li><a href="/backoffice">Administrateur</a></li>
+      <li *ngIf="isUserValid">
+        <a href="/benevoles/ajouter">Devenir bénévole</a>
+      </li>
+      <li *ngIf="isUserValid">
+        <a href="/panier"><i class="fas fa-shopping-cart"></i>
+          <span id="cart-count" style="background:#e74c3c;color:#fff;border-radius:50%;padding:2px 7px;margin-left:4px;">0</span>
+        </a>
+      </li>
+      <li *ngIf="isUserValid">
+        <button (click)="goToAccount()">Mon compte</button>
+      </li>
+      <li *ngIf="!isUserValid">
+        <button (click)="goToLogin()">Se connecter</button>
+      </li>
+    </ul>
+  </nav>
+</header>

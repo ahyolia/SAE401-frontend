@@ -1,0 +1,40 @@
+<div class="cata">
+  <h1>Catalogue</h1>
+  <p>Découvrez tous les produits disponibles à l’EPISE.</p>
+
+  <div *ngIf="loading">Chargement...</div>
+  <div *ngIf="error">{{ error }}</div>
+
+  <div *ngIf="data">
+    <div class="catalogue-categories">
+      <a
+        *ngFor="let cat of data.categories"
+        [class.active]="selectedCategory == cat.id"
+        (click)="filterByCategory(cat.id)"
+        href="#"
+      >
+        {{ cat.name }}
+      </a>
+      <a
+        [class.active]="selectedCategory == 'all'"
+        (click)="filterByCategory('all')"
+        href="#"
+      >
+        Tous
+      </a>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-card" *ngFor="let produit of data?.produits">
+        <img [src]="produit.image" alt="{{ produit.name }}" class="product-image" />
+        <h4>{{ produit.name }}</h4>
+        <p>{{ produit.description }}</p>
+        <div class="stock">Stock : {{ produit.stock }}</div>
+        <div class="category">{{ produit.category_name }}</div>
+        <button class="add-to-cart" (click)="onAddToCart(produit)">
+          Ajouter au panier
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
