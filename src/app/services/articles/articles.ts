@@ -13,4 +13,8 @@ export class Articles {
   getArticles() {
     return this.http.get(`${this.apiUrl}/articles`);
   }
+
+  getArticleBySlug(slug: string) {
+    return this.http.get(`${this.apiUrl}/articles/${slug}`);
+  }
 }
