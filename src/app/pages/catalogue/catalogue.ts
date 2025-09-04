@@ -60,7 +60,7 @@ export class Catalogue {
 
   onAddToCart(produit: Produit) {
     if (!this.isUserValid) {
-      window.location.href = '/users/login';
+      window.location.href = '/login';
       return;
     }
     const qty = this.getQuantity(produit.id);
