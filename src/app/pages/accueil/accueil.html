@@ -124,27 +124,25 @@
   <h2>Actualités de l'EPISE</h2>
   <div class="actus-grid">
     <!-- Actu principale -->
-    <!-- Pour Angular, tu pourras remplacer par une boucle plus tard -->
-    <div class="main-actu">
-      <img src="assets/images/actu1.jpg" alt="Image actu principale">
+    <div class="main-actu" *ngIf="articles && articles.length">
+      <img [src]="articles[0].image" [alt]="articles[0].titre">
       <div class="main-actu-text">
-        <p class="date">01/06/24</p>
+        <p class="date">{{ articles[0].date | date:'dd/MM/yy' }}</p>
         <h3>
-          <a href="/articles/lire/actu1">Titre de l'actu principale</a>
+          <a href="['/articles/lire', articles[0].slug]">{{ articles[0].titre }}</a>
         </h3>
-        <p class="preview">Aperçu de l’actualité principale...</p>
+        <p class="preview">{{ articles[0].apercu }}</p>
       </div>
     </div>
-    <div class="side-actus">
-      <div class="side-actu">
-        <img src="assets/images/actu2.jpg" alt="Actu">
+    <div class="side-actus" *ngIf="articles && articles.length > 1">
+      <div class="side-actu" *ngFor="let article of articles.slice(1, 4)">
+        <img [src]="article.image" [alt]="article.titre">
         <div>
-          <h4><a href="/articles/lire/actu2">Titre actu secondaire</a></h4>
-          <p class="date">28/05/24</p>
-          <p class="preview">Aperçu de l’actualité secondaire...</p>
+          <h4><a href="['/articles/lire', article.slug]">{{ article.titre }}</a></h4>
+          <p class="date">{{ article.date | date:'dd/MM/yy' }}</p>
+          <p class="preview">{{ article.apercu }}</p>
         </div>
       </div>
-      <!-- Ajoute d’autres actus ici -->
     </div>
   </div>
 </section>
