@@ -1,1 +1,27 @@
-<p>dons works!</p>
+<div class="dons-hero">
+	<div class="dons-avatar">
+		<img src="/assets/images/benevole.jpg" alt="Donner" />
+	</div>
+	<div class="dons-title">Faire un don</div>
+</div>
+
+<div class="dons-section">
+	<form #donForm="ngForm" (ngSubmit)="onSubmit()">
+		<label for="produit">Produit</label>
+		<input type="text" id="produit" name="produit" [(ngModel)]="don.produit" required />
+
+		<label for="quantite">Quantité</label>
+		<input type="number" id="quantite" name="quantite" [(ngModel)]="don.quantite" min="1" required />
+
+		<label for="categorie">Catégorie</label>
+		<select id="categorie" name="categorie" [(ngModel)]="don.categorie" required>
+			<option *ngFor="let cat of categories" [value]="cat.id">{{cat.nom}}</option>
+		</select>
+
+		<button type="submit" [disabled]="donForm.invalid">Donner</button>
+	</form>
+</div>
+
+<div class="dons-links">
+	<a routerLink="/catalogue">Retour au catalogue</a>
+</div>

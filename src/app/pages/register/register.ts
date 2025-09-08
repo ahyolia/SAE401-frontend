@@ -59,16 +59,17 @@ export class Register {
     this.http.post<any>('http://localhost/SAE401/api/users/register', data)
       .subscribe({
         next: (response) => {
-          if (response.success) {
-            this.successMsg = response.message || 'Inscription réussie.';
-            setTimeout(() => window.location.href = '/users/login', 1500);
-          } else {
-            this.errorMsg = response.message || 'Erreur lors de l’inscription.';
-          }
+          this.successMsg = response.message;
           this.loading = false;
+          if (this.adherent) {
+            // Redirige vers la page de paiement
+            window.location.href = '/users/pay';
+            // ou avec le router Angular :
+            // this.router.navigate(['/users/pay']);
+          }
         },
-        error: () => {
-          this.errorMsg = 'Erreur lors de l’inscription.';
+        error: (err) => {
+          this.errorMsg = err.error?.message || 'Erreur lors de l\'inscription';
           this.loading = false;
         }
       });
