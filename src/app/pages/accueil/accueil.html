@@ -129,18 +129,18 @@
       <div class="main-actu-text">
         <p class="date">{{ articles[0].date | date:'dd/MM/yy' }}</p>
         <h3>
-          <a href="['/articles/lire', articles[0].slug]">{{ articles[0].titre }}</a>
+          <a [routerLink]="['/articles/lire', articles[0].slug]">{{ articles[0].titre }}</a>
         </h3>
-        <p class="preview">{{ articles[0].apercu }}</p>
+        <p class="preview">{{ articles[0].contenu | slice:0:100 }}...</p>
       </div>
     </div>
     <div class="side-actus" *ngIf="articles && articles.length > 1">
       <div class="side-actu" *ngFor="let article of articles.slice(1, 4)">
         <img [src]="article.image" [alt]="article.titre">
         <div>
-          <h4><a href="['/articles/lire', article.slug]">{{ article.titre }}</a></h4>
+          <h4><a [routerLink]="['/articles/lire', article.slug]">{{ article.titre }}</a></h4>
           <p class="date">{{ article.date | date:'dd/MM/yy' }}</p>
-          <p class="preview">{{ article.apercu }}</p>
+          <p class="preview">{{ article.contenu | slice:0:100 }}...</p>
         </div>
       </div>
     </div>
