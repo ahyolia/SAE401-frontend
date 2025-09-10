@@ -150,12 +150,8 @@
 <section class="partenaires">
   <h2>Les partenaires</h2>
   <div class="carousel-partenaire">
-    <div>
-      <img src="assets/images/partenaire1.png" alt="Partenaire 1" style="max-width:120px;max-height:80px;">
+    <div *ngFor="let partenaire of carrouselPartenaires">
+      <img [src]="partenaire.image" [alt]="partenaire.titre" style="max-width:120px;max-height:80px;">
     </div>
-    <div>
-      <img src="assets/images/partenaire2.png" alt="Partenaire 2" style="max-width:120px;max-height:80px;">
-    </div>
-    <!-- Ajoute d’autres partenaires ici -->
   </div>
 </section>
