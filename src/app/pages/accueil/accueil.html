@@ -149,9 +149,13 @@
 
 <section class="partenaires">
   <h2>Les partenaires</h2>
-  <div class="carousel-partenaire">
-    <div *ngFor="let partenaire of carrouselPartenaires">
-      <img [src]="partenaire.image" [alt]="partenaire.titre" style="max-width:120px;max-height:80px;">
-    </div>
-  </div>
+  <ngb-carousel [interval]="2000" [wrap]="true" [pauseOnHover]="true">
+    <ng-template ngbSlide *ngFor="let partenaires of groupedPartenaires">
+      <div class="carousel-slide-row">
+        <div class="carousel-item-custom" *ngFor="let partenaire of partenaires">
+          <img [src]="partenaire.image" [alt]="partenaire.titre" />
+        </div>
+      </div>
+    </ng-template>
+  </ngb-carousel>
 </section>
