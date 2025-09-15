@@ -1,0 +1,29 @@
+<div class="account-hero">
+  <div class="account-avatar">
+    <img src="/images/user.png" alt="Avatar" />
+  </div>
+  <div class="account-title">Modifier mon profil</div>
+</div>
+
+<div class="account-main">
+  <form (ngSubmit)="onSubmit()" #editForm="ngForm" class="account-info-block">
+    <div *ngIf="successMsg" class="alert success">{{ successMsg }}</div>
+    <div *ngIf="errorMsg" class="alert error">{{ errorMsg }}</div>
+
+    <label>Prénom</label>
+    <input type="text" [(ngModel)]="prenom" name="prenom" required>
+
+    <label>Email</label>
+    <input type="email" [(ngModel)]="email" name="email" required>
+
+    <label>Nouveau mot de passe</label>
+    <input type="password" [(ngModel)]="password" name="password" placeholder="Laisser vide pour ne pas changer">
+
+    <button type="submit" [disabled]="loading" class="btn-compte">Enregistrer</button>
+  </form>
+
+  <div class="account-info-block" *ngIf="!adherent">
+    <p>Vous n'êtes pas encore adhérent.</p>
+    <button (click)="payerAdhesion()" [disabled]="loading" class="btn-compte">Payer l'adhésion</button>
+  </div>
+</div>

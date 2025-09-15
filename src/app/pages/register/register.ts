@@ -69,7 +69,13 @@ export class Register {
           }
         },
         error: (err) => {
-          this.errorMsg = err.error?.message || 'Erreur lors de l\'inscription';
+          if (err.error && err.error.message) {
+            this.errorMsg = err.error.message;
+          } else if (err.status === 401) {
+            this.errorMsg = "Un utilisateur avec ces informations existe déjà.";
+          } else {
+            this.errorMsg = "Erreur lors de l'inscription";
+          }
           this.loading = false;
         }
       });

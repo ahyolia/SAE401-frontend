@@ -1,0 +1,118 @@
+.account-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.account-avatar img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #e6fcfa;
+  border: 3px solid #55BDC6;
+  margin-bottom: 12px;
+}
+
+.account-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #187171;
+  margin-bottom: 8px;
+}
+
+.account-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
+  margin: 0 auto;
+  max-width: 420px;
+  width: 100%;
+}
+
+.account-info-block {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(85,189,198,0.10);
+  padding: 2em 2em 1.2em 2em;
+  min-width: 320px;
+  max-width: 420px;
+  width: 100%;
+  margin-bottom: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.account-info-block label {
+  font-weight: bold;
+  color: #18B76A;
+  margin-top: 1.2em;
+  margin-bottom: 0.2em;
+  text-align: left;
+}
+
+.account-info-block input[type="text"],
+.account-info-block input[type="email"],
+.account-info-block input[type="password"] {
+  background: #e6fcfa;
+  border: 1px solid #b2dfdb;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 1em;
+  margin-bottom: 0.5em;
+  transition: border 0.2s;
+}
+
+.account-info-block input:focus {
+  border: 1.5px solid #55BDC6;
+  outline: none;
+}
+
+.btn-compte {
+  background: #187171;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1.1em;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 1.5em;
+  transition: background 0.2s;
+  font-weight: bold;
+}
+
+.btn-compte:disabled {
+  background: #b2dfdb;
+  cursor: not-allowed;
+}
+
+.alert {
+  margin-bottom: 1em;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.alert.success {
+  background: #eafaf1;
+  color: #27ae60;
+}
+
+.alert.error {
+  background: #ffeaea;
+  color: #d32f2f;
+}
+
+@media (max-width: 600px) {
+  .account-main, .account-info-block {
+    max-width: 98vw;
+    min-width: 0;
+    padding: 1em;
+  }
+}
+

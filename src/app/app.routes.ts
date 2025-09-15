@@ -18,5 +18,10 @@ export const routes: Routes = [
   { path: 'articles/lire/:slug', component: ArticleDetail },
   { path: 'dons', component: Dons },
   { path: 'benevoles', component: Benevoles },
-  { path: '**', component: NotFound }
+  { path: 'forgot', loadComponent: () => import('./pages/forgot/forgot').then(m => m.Forgot) },
+  { path: 'reset', loadComponent: () => import('./pages/reset/reset').then(m => m.Reset) },
+  { path: 'users/pay', loadComponent: () => import('./pages/pay/pay').then(m => m.Pay) },
+  { path: 'compte', loadComponent: () => import('./pages/compte/compte').then(m => m.Compte) },
+  { path: 'compte/edit', loadComponent: () => import('./pages/compte-edit/compte-edit').then(m => m.CompteEdit) },
+  { path: '**', component: NotFound }, // <-- toujours en dernier
 ];

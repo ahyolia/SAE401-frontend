@@ -1,36 +1,33 @@
-<div class="account-hero">
-  <div class="account-avatar">
-    <img src="assets/images/user.png" alt="Avatar" />
-  </div>
-  <div class="account-title">Mon compte</div>
-</div>
 
 <div class="account-main">
-  <div class="account-info-block">
-    <div class="account-info">
-      <label>Numéro étudiant</label>
-      <div class="info-value">{{ user?.numero_etudiant || '-' }}</div>
-
-      <label>Email</label>
-      <div class="info-value">{{ user?.email || '-' }}</div>
-
-      <label>Prénom</label>
-      <div class="info-value">{{ user?.prenom || '-' }}</div>
-
-      <label>Adhérent</label>
-      <div class="info-value">{{ user?.adherent ? 'Oui' : 'Non' }}</div>
+  <div class="account-board">
+  <div class="account-board-header">
+    <div class="account-avatar">
+      <img src="/images/user.png" alt="Avatar" />
     </div>
-    <div class="account-btns-row">
-      <button class="btn-compte btn-small" (click)="onEdit()">Modifier mon profil</button>
-      <button class="btn-compte btn-small" (click)="onLogout()">Déconnexion</button>
-    </div>
-    <div style="text-align:center; margin-top:1em;">
-      <button class="btn-compte btn-danger" (click)="onDeleteAccount()" style="background:#d32f2f;color:white;">Supprimer mon compte</button>
+    <div>
+      <div class="account-board-name">{{ user?.prenom || '-' }}</div>
+      <div class="account-board-email">{{ user?.email || '-' }}</div>
+      <div class="account-board-status">
+        <span *ngIf="user?.adherent; else notAdherent" class="adherent-ok">Adhérent</span>
+        <ng-template #notAdherent>
+          <span class="adherent-ko">Non adhérent</span>
+          <a class="pay-link" href="/users/pay" *ngIf="!user?.adherent">Payer l’adhésion</a>
+        </ng-template>
+      </div>
     </div>
   </div>
+
+  <div class="account-board-actions">
+    <button class="btn-compte" (click)="onEdit()">Modifier mon profil</button>
+    <button class="btn-compte" (click)="onLogout()">Déconnexion</button>
+    <button class="btn-compte btn-danger" (click)="onDeleteAccount()">Supprimer mon compte</button>
+  </div>
+</div>
+
   <div class="account-historiques">
     <div class="account-section account-orders-block">
-      <h2>Historique de mes commandes</h2>
+      <h2 style="font-weight: bold;">Historique de mes commandes</h2>
       <table *ngIf="reservations?.length; else noOrders" class="account-orders">
         <thead>
           <tr>
@@ -52,7 +49,7 @@
       </ng-template>
     </div>
     <div class="account-section account-dons-block">
-      <h2>Mes dons</h2>
+      <h2 style="font-weight: bold;">Mes dons</h2>
       <table *ngIf="dons?.length; else noDons" class="account-dons">
         <thead>
           <tr>

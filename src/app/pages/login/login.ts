@@ -15,25 +15,32 @@ export class Login {
   password: string = '';
   errorMsg: string = '';
   loading: boolean = false;
+  role: string = ''; // Ajout de la propriété role
+  successMsg: string = ''; // Ajout de la propriété successMsg
+  adherent: boolean = false; // Ajout de la propriété adherent
 
   constructor(private http: HttpClient) {}
 
   onSubmit() {
     this.loading = true;
-    this.http.post<{ token: string }>(
-      'http://localhost/SAE401/api/users/login',
-      { login: this.login, password: this.password }
-    ).subscribe({
+    this.http.post<any>('http://localhost/SAE401/api/users/login', {
+      login: this.login,
+      password: this.password
+    }, { withCredentials: true })
+    .subscribe({
       next: (response) => {
-        localStorage.setItem('token', response.token);
-        document.cookie = `token=${response.token}; path=/`;
-        const redirectUrl = localStorage.getItem('redirectAfterLogin') || '/';
-        window.location.href = redirectUrl;
-        localStorage.removeItem('redirectAfterLogin');
         this.loading = false;
+        if (response.success) {
+          // Stocke le prénom et le token dans le localStorage
+          localStorage.setItem('prenom', response.user?.prenom || '');
+          localStorage.setItem('token', response.user?.token || '');
+          window.location.href = '/'; // ou route vers la page d'accueil
+        } else {
+          this.errorMsg = response.message || "Nom d'utilisateur, email ou mot de passe incorrect.";
+        }
       },
       error: (err) => {
-        this.errorMsg = 'Erreur de connexion';
+        this.errorMsg = err.error?.message || "Erreur lors de la connexion";
         this.loading = false;
       }
     });

@@ -57,3 +57,16 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Password reset
+
+If you forgot your password, follow these steps:
+
+1. On the login page, click **"Forgot password?"**.
+2. Enter the email address associated with your account and click **"Send"**.
+3. If an account exists, you will receive an email with a password reset link.
+   - **In local development**, the link is available in the `mail_debug.txt` file in the backend project.
+4. Click the link received (or copy it from `mail_debug.txt`), then enter and confirm your new password.
+5. Submit the form. You can now log in with your new password.
+
+If you encounter any issues, please contact the site administrator.

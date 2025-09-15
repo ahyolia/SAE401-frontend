@@ -1,0 +1,62 @@
+.reset-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 32px 24px;
+  background: #e6fcfa;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  text-align: center;
+}
+
+.reset-container h2 {
+  margin-bottom: 24px;
+  color: #187171;
+}
+
+.form-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #187171;
+}
+
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #b2dfdb;
+  font-size: 1em;
+}
+
+.reset-container button {
+  background: #187171;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 0;
+  font-size: 1em;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px;
+}
+
+.reset-container button:disabled {
+  background: #b2dfdb;
+  cursor: not-allowed;
+}
+
+.success {
+  color: #388e3c;
+  margin-top: 18px;
+}
+
+.error {
+  color: #d32f2f;
+  margin-top: 18px;
+}

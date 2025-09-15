@@ -1,7 +1,7 @@
-<div class="container">
+<div class="pay-container">
   <h2>Paiement de l'adhésion annuelle</h2>
-  <p>L'adhésion coûte <strong>200 F</strong> par an.</p>
-  <button (click)="payerAdhesion()" [disabled]="loading">Payer mon adhésion</button>
-  <div *ngIf="successMsg" class="alert">{{ successMsg }}</div>
-  <div *ngIf="errorMsg" class="alert">{{ errorMsg }}</div>
+  <p class="pay-info">L'adhésion coûte <strong>200 F</strong> par an.</p>
+  <button (click)="payerAdhesion()" [disabled]="loading" class="pay-btn">Payer mon adhésion</button>
+  <div *ngIf="successMsg" class="pay-alert success">{{ successMsg }}</div>
+  <div *ngIf="errorMsg" class="pay-alert error">{{ errorMsg }}</div>
 </div>

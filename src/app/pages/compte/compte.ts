@@ -24,7 +24,7 @@ export class Compte {
   }
 
   onEdit() {
-    window.location.href = '/account/edit';
+    window.location.href = '/compte/edit';
   }
 
   onLogout() {

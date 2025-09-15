@@ -18,7 +18,7 @@ export class Pay {
 
   payerAdhesion() {
     this.loading = true;
-    this.http.post<any>('http://localhost/SAE401/api/users/payProcess', {})
+    this.http.post<any>('http://localhost/SAE401/api/users/payProcess', {}, { withCredentials: true })
       .subscribe({
         next: (response) => {
           if (response.success) {

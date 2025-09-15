@@ -18,7 +18,7 @@ export class HeaderComponent {
   }
 
   goToAccount() {
-    window.location.href = '/account';
+    window.location.href = '/compte';
   }
   goToLogin() {
     window.location.href = '/login';
