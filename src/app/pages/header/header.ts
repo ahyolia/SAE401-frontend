@@ -27,16 +27,10 @@ export class HeaderComponent {
   ngOnInit() {
     this.http.get<any>('http://localhost/SAE401/api/users/edit', { withCredentials: true })
       .subscribe({
-        next: res => {
-          // Session OK, rien à faire
-        },
+        next: res => {},
         error: err => {
           if (err.status === 401) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('prenom');
-            localStorage.removeItem('email');
-            localStorage.removeItem('numero_etudiant');
-            localStorage.removeItem('adherent');
+            localStorage.clear();
             window.location.reload();
           }
         }
