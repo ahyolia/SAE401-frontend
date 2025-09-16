@@ -34,4 +34,8 @@ export class Pay {
         }
       });
   }
+
+  goBack() {
+    window.history.back();
+  }
 }

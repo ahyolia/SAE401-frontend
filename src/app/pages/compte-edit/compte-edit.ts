@@ -77,4 +77,8 @@ export class CompteEdit {
         }
       });
   }
+
+  goBack() {
+    window.history.back();
+  }
 }

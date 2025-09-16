@@ -3,9 +3,7 @@
     <a href="/" class="logo">
       <img src="/images/epise_logo.png" alt="Logo de l'ÉPISE" />
     </a>
-    <span *ngIf="userPrenom" class="nav-user" style="color:#55BDC6;font-weight:600;font-size:1.25em;">
-      Bonjour {{ userPrenom }} !
-    </span>
+    <span *ngIf="userPrenom" class="nav-user" style="font-weight: bold; color: #55BDC6;">Bonjour {{ userPrenom }} !</span>
   </div>
   <button id="burger-btn" class="burger" aria-label="Menu">
     <i class="fas fa-bars"></i>
@@ -16,18 +14,19 @@
       <li><a href="/apropos">À propos</a></li>
       <li><a href="/catalogue">Magasin</a></li>
       <li *ngIf="isUserValid">
-        <a href="/benevoles/ajouter">Devenir bénévole</a>
+        <a href="/benevoles">Devenir bénévole</a>
       </li>
       <li *ngIf="isUserValid">
         <a href="/panier"><i class="fas fa-shopping-cart"></i>
           <span id="cart-count" style="background:#e74c3c;color:#fff;border-radius:50%;padding:2px 7px;margin-left:4px;">0</span>
         </a>
       </li>
-      <li *ngIf="isUserValid">
-        <button (click)="goToAccount()">Mon compte</button>
-      </li>
-      <li *ngIf="!isUserValid">
-        <button (click)="goToLogin()">Se connecter</button>
+      <li>
+        <!-- Affiche le bouton selon l’état connecté -->
+        <button *ngIf="isUserValid; else loginBtn" (click)="goToAccount()">Mon compte</button>
+        <ng-template #loginBtn>
+          <button (click)="goToLogin()">Se connecter</button>
+        </ng-template>
       </li>
     </ul>
   </nav>

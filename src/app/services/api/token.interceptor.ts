@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -16,7 +17,19 @@ export class TokenInterceptor implements HttpInterceptor {
         withCredentials: true
       });
     }
-    return next.handle(authReq);
+    return next.handle(authReq).pipe(
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === 401) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('prenom');
+          localStorage.removeItem('email');
+          localStorage.removeItem('numero_etudiant');
+          localStorage.removeItem('adherent');
+          window.location.reload();
+        }
+        return throwError(() => err);
+      })
+    );
   }
 }
 

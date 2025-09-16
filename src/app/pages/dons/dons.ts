@@ -21,4 +21,8 @@ export class Dons {
     // Ajoute ici la logique d’envoi du don à l’API
     alert('Don envoyé !');
   }
+
+  goBack() {
+    window.history.back();
+  }
 }

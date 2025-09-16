@@ -80,4 +80,8 @@ export class Register {
         }
       });
   }
+
+  goBack() {
+    window.history.back();
+  }
 }

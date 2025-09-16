@@ -1,10 +1,13 @@
+
 <div class="inscription-hero">
   <div class="inscription-avatar">
     <img src="/images/user.png" alt="Avatar">
   </div>
   <div class="inscription-title" style="text-align:center; width:100%;">Inscription</div>
 </div>
-
+<button class="back-arrow" (click)="goBack()" aria-label="Retour">
+  &#8592;
+</button>
 <div class="inscription-section">
   <div *ngIf="errorMsg" class="alert" id="alert-msg">{{ errorMsg }}</div>
   <div *ngIf="successMsg" class="alert" id="alert-msg">{{ successMsg }}</div>

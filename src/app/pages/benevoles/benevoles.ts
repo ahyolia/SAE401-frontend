@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class Benevoles {
   // Ajoute ici la logique pour charger la liste ou le formulaire
+
+  goBack() {
+    window.history.back();
+  }
 }

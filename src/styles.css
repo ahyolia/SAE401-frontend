@@ -1020,3 +1020,39 @@ a:hover {
     font-size: 1.8rem;
   }
 }
+
+/* Style du bouton retour façon bouton scroll top */
+.back-arrow {
+  position: fixed;
+  top: 150px; 
+  left: 50px;
+  z-index: 1001;
+  background: #fff;
+  color: #55BDC6;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: background 0.2s, color 0.2s;
+}
+
+.back-arrow:hover {
+  background: #55BDC6;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .back-arrow {
+    top: 60px;
+    left: 12px;
+    width: 48px;
+    height: 48px;
+    font-size: 1.5em;
+  }
+}
