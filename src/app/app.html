@@ -1,4 +1,5 @@
 <app-header></app-header>
+<div *ngIf="errorMsg" class="alert error">{{ errorMsg }}</div>
 <router-outlet></router-outlet>
 <app-scroll-top></app-scroll-top>
 <app-footer></app-footer>

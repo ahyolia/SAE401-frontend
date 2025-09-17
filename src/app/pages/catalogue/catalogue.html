@@ -1,8 +1,15 @@
+<div *ngIf="!isAdherent" class="catalogue-message">
+    <strong>Réservé aux adhérents.</strong>
+    <span>Pour ajouter des produits au panier, vous devez payer l’adhésion annuelle (200 F).</span>
+    <a href="/users/pay" class="pay-link">Payer l’adhésion</a>
+  </div>
 <div class="cata">
   <h1>Magasin</h1>
+  
   <p>
     Les étudiants adhérents peuvent réserver jusqu'à <strong>5 produits</strong> et <strong>2 paniers par semaine</strong>, dans la limite des ressources disponibles.
   </p>
+
 
   <!-- Barre de recherche -->
   <form class="catalogue-search" (submit)="onSearch($event)">
@@ -36,7 +43,7 @@
         {{ cat.name }}
       </a>
     </div>
-
+    
     <div class="product-grid">
       <div
         class="product-card"

@@ -20,11 +20,8 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(authReq).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.status === 401) {
-          localStorage.removeItem('token');
-          localStorage.removeItem('prenom');
-          localStorage.removeItem('email');
-          localStorage.removeItem('numero_etudiant');
-          localStorage.removeItem('adherent');
+          localStorage.clear();
+          localStorage.setItem('sessionExpired', 'Votre session a expiré. Veuillez vous reconnecter.');
           window.location.reload();
         }
         return throwError(() => err);

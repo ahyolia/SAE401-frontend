@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common'; // Ajoute cette ligne
 import { HttpClient } from '@angular/common/http';
 
 interface ProduitPanier {
@@ -12,6 +13,8 @@ interface ProduitPanier {
 
 @Component({
   selector: 'app-panier',
+  standalone: true,
+  imports: [CommonModule], 
   templateUrl: './panier.html',
   styleUrl: './panier.css'
 })
@@ -20,6 +23,9 @@ export class PanierComponent implements OnInit {
   isAdherent = false;
   message = '';
   jauge = 0;
+  successMsg = '';
+  errorMsg = '';
+  loading = false;
 
   constructor(private http: HttpClient) {}
 
@@ -116,6 +122,34 @@ export class PanierComponent implements OnInit {
   }
 
   payerAdhesion() {
-    window.location.href = '/users/pay';
+    this.loading = true;
+    this.http.post<any>('http://localhost/SAE401/api/users/payProcess', {}, { withCredentials: true })
+      .subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.successMsg = response.message;
+            // Met à jour le statut local
+            localStorage.setItem('adherent', '1');
+            // Optionnel : redirige ou recharge le panier
+            window.location.href = '/panier';
+          } else {
+            this.errorMsg = response.message || 'Erreur lors du paiement.';
+          }
+          this.loading = false;
+        },
+        error: () => {
+          this.errorMsg = 'Erreur lors du paiement.';
+          this.loading = false;
+        }
+      });
+  }
+
+  onAddToCart(produit: ProduitPanier) {
+    if (!this.isAdherent) {
+      this.message = "Vous devez être adhérent pour ajouter des produits au panier. ";
+      this.message += `<a href='/users/pay' style='color:#187171;font-weight:bold;'>Payer l'adhésion</a>`;
+      return;
+    }
+    // Ajout normal au panier...
   }
 }

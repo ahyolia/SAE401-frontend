@@ -23,6 +23,10 @@ export class Pay {
         next: (response) => {
           if (response.success) {
             this.successMsg = response.message;
+            // Met à jour le statut local
+            localStorage.setItem('adherent', '1');
+            // Optionnel : redirige ou recharge le panier
+            window.location.href = '/panier';
           } else {
             this.errorMsg = response.message || 'Erreur lors du paiement.';
           }

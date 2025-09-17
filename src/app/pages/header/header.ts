@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class HeaderComponent {
   isUserValid: boolean = false;
   userPrenom: string | null = null;
+  errorMsg: string | null = null;
 
   constructor(private router: Router, private http: HttpClient) {
     this.router.events.subscribe(event => {
@@ -25,6 +26,12 @@ export class HeaderComponent {
   }
 
   ngOnInit() {
+    const expiredMsg = localStorage.getItem('sessionExpired');
+    if (expiredMsg) {
+      this.errorMsg = expiredMsg;
+      localStorage.removeItem('sessionExpired');
+    }
+
     this.http.get<any>('http://localhost/SAE401/api/users/edit', { withCredentials: true })
       .subscribe({
         next: res => {},

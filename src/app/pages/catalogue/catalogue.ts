@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { CatalogueService, CatalogueData, Produit } from '../../services/catalogue/catalogue';
@@ -10,8 +10,9 @@ import { CatalogueService, CatalogueData, Produit } from '../../services/catalog
   templateUrl: './catalogue.html',
   styleUrl: './catalogue.css'
 })
-export class Catalogue {
+export class Catalogue implements OnInit {
   isUserValid = false;
+  isAdherent = false;
   data: CatalogueData | null = null;
   loading = true;
   error: string | null = null;
@@ -23,6 +24,7 @@ export class Catalogue {
 
   ngOnInit() {
     this.isUserValid = !!localStorage.getItem('token');
+    this.isAdherent = localStorage.getItem('adherent') === '1';
     this.loadCatalogue();
   }
 

@@ -1,6 +1,6 @@
 <main>
   <h2 class="panier-title">Votre panier</h2>
-  <div *ngIf="message" class="panier-message">{{ message }}</div>
+  <div *ngIf="message" class="panier-message" [innerHTML]="message"></div>
   <div id="panier-container">
     <table id="panier" class="cart" *ngIf="panier.length > 0">
       <thead>
