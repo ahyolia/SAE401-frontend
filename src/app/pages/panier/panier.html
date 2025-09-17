@@ -1,1 +1,59 @@
-<p>panier works!</p>
+<main>
+  <h2 class="panier-title">Votre panier</h2>
+  <div *ngIf="message" class="panier-message">{{ message }}</div>
+  <div id="panier-container">
+    <table id="panier" class="cart" *ngIf="panier.length > 0">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Produit</th>
+          <th>Quantité</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let produit of panier; let i = index">
+          <td>
+            <img [src]="produit.image || 'assets/images/default.png'" [alt]="produit.name" width="50" />
+          </td>
+          <td>{{ produit.name }}</td>
+          <td>
+            <button class="btn-minus" (click)="minus(i)">-</button>
+            <input type="number" [value]="produit.quantity" min="1" [max]="produit.stock || 99"
+              (input)="updateQuantity(i, $event.target.valueAsNumber)" class="quantite" />
+            <button class="btn-plus" (click)="plus(i)">+</button>
+            <span style="font-size:12px;color:#888;">/ {{ produit.stock || 99 }} en stock</span>
+          </td>
+          <td>
+            <button class="supprimer" (click)="supprimer(i)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="panier.length === 0" class="panier-vide">Votre panier est vide.</div>
+    <div id="panier-totaux">
+      <p>
+        Réservée aux adhérents (adhésion annuelle : 200 F).<br>
+        Sélectionnez vos produits, puis validez votre réservation.
+      </p>
+      <div id="jauge-aliments">
+        <div style="margin:1em 0; display: flex; align-items: center;">
+          <strong>Produits réservés : </strong> {{ jauge }} / 5
+          <div style="background:#eee;flex:1;height:15px;border-radius:8px;overflow:hidden;display:inline-block;margin-left:1em;max-width:300px;">
+            <div [style.background]="'#27ae60'" [style.width.%]="(jauge/5)*100" [style.height.%]="100"></div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isAdherent; else nonAdherentBtns" id="actions-adherent">
+        <button class="btn-secondary" (click)="viderPanier()">Vider le panier</button>
+        <button class="btn-primary" (click)="validerPanier()">Commander</button>
+      </div>
+      <ng-template #nonAdherentBtns>
+        <div id="actions-nonadherent">
+          <button class="btn-secondary" (click)="viderPanier()">Vider le panier</button>
+          <button class="btn-primary" (click)="payerAdhesion()">Payer l'adhésion</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</main>

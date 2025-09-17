@@ -23,5 +23,6 @@ export const routes: Routes = [
   { path: 'users/pay', loadComponent: () => import('./pages/pay/pay').then(m => m.Pay) },
   { path: 'compte', loadComponent: () => import('./pages/compte/compte').then(m => m.Compte) },
   { path: 'compte/edit', loadComponent: () => import('./pages/compte-edit/compte-edit').then(m => m.CompteEdit) },
+  { path: 'panier', loadComponent: () => import('./pages/panier/panier').then(m => m.PanierComponent) },
   { path: '**', component: NotFound }, // <-- toujours en dernier
 ];
