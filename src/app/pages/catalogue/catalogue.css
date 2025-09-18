@@ -551,3 +551,30 @@ h4 {
   background: #187171;
   color: #fff;
 }
+
+.catalogue-toast {
+  position: fixed;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  background: #eafaf1;
+  color: #187171;
+  border-radius: 16px;
+  padding: 1em 2.5em;
+  font-size: 1.15em;
+  font-weight: bold;
+  box-shadow: 0 4px 24px rgba(85,189,198,0.18);
+  text-align: center;
+  min-width: 220px;
+  max-width: 90vw;
+  pointer-events: none;
+  animation: fadeOutToast 0.5s linear 4.5s forwards;
+}
+
+@keyframes fadeOutToast {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

@@ -1,3 +1,4 @@
+<div *ngIf="message" class="catalogue-toast" [innerHTML]="message"></div>
 <div *ngIf="!isAdherent" class="catalogue-message">
     <strong>Réservé aux adhérents.</strong>
     <span>Pour ajouter des produits au panier, vous devez payer l’adhésion annuelle (200 F).</span>
@@ -26,6 +27,7 @@
 
   <div *ngIf="loading">Chargement...</div>
   <div *ngIf="error">{{ error }}</div>
+
 
   <div *ngIf="data">
     <div class="catalogue-categories">

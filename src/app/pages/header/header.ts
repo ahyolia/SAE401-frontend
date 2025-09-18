@@ -50,4 +50,9 @@ export class HeaderComponent {
   goToLogin() {
     window.location.href = '/login';
   }
+
+  get panierCount(): number {
+    const panier: { quantity: number }[] = JSON.parse(localStorage.getItem('panier') || '[]');
+    return panier.reduce((total: number, item: { quantity: number }) => total + item.quantity, 0);
+  }
 }
