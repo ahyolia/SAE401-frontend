@@ -18,14 +18,20 @@ export class Compte implements OnInit {
   constructor(private http: HttpClient, public userService: User) {}
 
   ngOnInit() {
+    this.loadHistorique();
+    window.addEventListener('historiqueUpdated', () => this.loadHistorique());
+  }
+
+  loadHistorique() {
     this.http.get<any>('http://localhost/SAE401/api/users/account', { withCredentials: true })
       .subscribe({
         next: res => {
+          console.log('API /users/account:', res);
           this.user = res.user;
           this.reservations = res.reservations || [];
           this.dons = res.dons || [];
         },
-        error: () => { /* ... */ }
+        error: () => { this.reservations = []; }
       });
   }
 

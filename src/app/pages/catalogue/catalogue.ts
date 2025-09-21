@@ -120,8 +120,11 @@ export class Catalogue implements OnInit {
     }
 
     // Synchronise le panier avec la BDD via l'API
-    this.panierService.savePanier(this.panier).subscribe({
-      next: () => this.loadPanier()
+    this.panierService.updatePanier(this.panier).subscribe({
+      next: () => {
+        this.loadPanier();
+        window.dispatchEvent(new Event('panierUpdated'));
+      }
     });
     this.message = `${panierItem.name} ajouté au panier !`;
     setTimeout(() => this.message = '', 5000);

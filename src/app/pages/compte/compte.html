@@ -36,7 +36,9 @@
         <tbody>
           <tr *ngFor="let res of reservations">
             <td>{{ res.date | date:'dd/MM/yyyy HH:mm' }}</td>
-            <td>{{ res.produits || 'Aucun produit' }}</td>
+            <td>
+              {{ res.produits && res.produits !== '' ? res.produits : 'Aucun produit' }}
+            </td>
             <td>{{ res.statut }}</td>
           </tr>
         </tbody>

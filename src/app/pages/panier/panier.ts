@@ -53,6 +53,7 @@ export class PanierComponent implements OnInit {
   loadPanier() {
     this.panierService.getPanier().subscribe({
       next: res => {
+        console.log('API panier:', res);
         this.panier = res.panier || [];
         this.syncStocks();
       },
@@ -67,8 +68,12 @@ export class PanierComponent implements OnInit {
     } else {
       this.panier.push({ ...produit });
     }
+    // Après ajout au panier
     this.panierService.savePanier(this.panier).subscribe({
-      next: () => this.loadPanier()
+      next: () => {
+        this.loadPanier();
+        window.dispatchEvent(new Event('panierUpdated'));
+      }
     });
   }
 
@@ -80,13 +85,18 @@ export class PanierComponent implements OnInit {
     const produit = this.panier[index];
     if (produit.stock && produit.quantity >= produit.stock) return;
     produit.quantity += 1;
-    this.syncPanier();
+    this.panierService.updatePanier(this.panier).subscribe({
+      next: () => this.loadPanier()
+    });
   }
 
   minus(index: number) {
-    if (this.panier[index].quantity > 1) {
-      this.panier[index].quantity -= 1;
-      this.syncPanier();
+    const produit = this.panier[index];
+    if (produit.quantity > 1) {
+      produit.quantity -= 1;
+      this.panierService.updatePanier(this.panier).subscribe({
+        next: () => this.loadPanier()
+      });
     }
   }
 

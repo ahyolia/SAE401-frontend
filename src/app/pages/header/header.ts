@@ -14,6 +14,7 @@ export class Header {
   isUserValid = !!localStorage.getItem('token');
   userPrenom: string | null = null;
   errorMsg: string | null = null;
+  panierCount: number = 0;
 
   constructor(private router: Router, private http: HttpClient) {
     this.router.events.subscribe(event => {
@@ -42,6 +43,22 @@ export class Header {
           }
         }
       });
+
+    // Recharge le compteur à chaque navigation ou action
+    this.updatePanierCount();
+
+    window.addEventListener('panierUpdated', () => this.updatePanierCount());
+  }
+
+  updatePanierCount() {
+    this.http.get<any>('http://localhost/SAE401/api/panier', { withCredentials: true })
+      .subscribe({
+        next: res => {
+          const panier = res.panier || [];
+          this.panierCount = panier.reduce((total: number, item: { quantity: number }) => total + item.quantity, 0);
+        },
+        error: () => { this.panierCount = 0; }
+      });
   }
 
   goToAccount() {
@@ -49,10 +66,5 @@ export class Header {
   }
   goToLogin() {
     window.location.href = '/login';
-  }
-
-  get panierCount(): number {
-    const panier: { quantity: number }[] = JSON.parse(localStorage.getItem('panier') || '[]');
-    return panier.reduce((total: number, item: { quantity: number }) => total + item.quantity, 0);
   }
 }
