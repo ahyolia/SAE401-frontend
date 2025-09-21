@@ -508,11 +508,11 @@ h4 {
 
 .catalogue-message {
   position: fixed;
-  top: 445px; /* sous le header */
-  right: 60%;
+  top: 445px;
+  left: 50%;
   transform: translateX(-50%);
   z-index: 1002;
-  background:  #c7f7f0 ;
+  background: #c7f7f0;
   color: #187171;
   border-radius: 18px;
   padding: 1.5em 2em;
@@ -527,29 +527,38 @@ h4 {
   gap: 1em;
 }
 
-.catalogue-message strong {
-  font-size: 1.2em;
-  color: #187171;
-  margin-bottom: 0.5em;
+@media (max-width: 900px) {
+  .catalogue-message {
+    top: 120px;
+    left: 50%;
+    min-width: 180px;
+    max-width: 95vw;
+    padding: 1em 0.5em;
+    font-size: 1em;
+  }
+  .catalogue-message .pay-link {
+    width: 100%;
+    font-size: 1em;
+    padding: 0.7em 0.5em;
+    margin-top: 0.7em;
+  }
 }
 
-.catalogue-message .pay-link {
-  display: inline-block;
-  background: #55BDC6;
-  color: #fff;
-  padding: 0.7em 2em;
-  border-radius: 12px;
-  font-weight: bold;
-  font-size: 1.1em;
-  margin-top: 1em;
-  text-decoration: none;
-  box-shadow: 0 2px 8px rgba(85,189,198,0.08);
-  transition: background 0.2s;
-}
-
-.catalogue-message .pay-link:hover {
-  background: #187171;
-  color: #fff;
+@media (max-width: 600px) {
+  .catalogue-message {
+    top: 80px;
+    left: 50%;
+    min-width: 120px;
+    max-width: 98vw;
+    padding: 0.7em 0.2em;
+    font-size: 0.95em;
+  }
+  .catalogue-message .pay-link {
+    width: 100%;
+    font-size: 0.98em;
+    padding: 0.6em 0.2em;
+    margin-top: 0.5em;
+  }
 }
 
 .catalogue-toast {

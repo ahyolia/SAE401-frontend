@@ -1,4 +1,3 @@
-
 <div class="account-main">
   <div class="account-board">
   <div class="account-board-header">
@@ -8,13 +7,11 @@
     <div>
       <div class="account-board-name">{{ user?.prenom || '-' }}</div>
       <div class="account-board-email">{{ user?.email || '-' }}</div>
-      <div class="account-board-status">
-        <span *ngIf="user?.adherent; else notAdherent" class="adherent-ok">Adhérent</span>
-        <ng-template #notAdherent>
-          <span class="adherent-ko">Non adhérent</span>
-          <a class="pay-link" href="/users/pay" *ngIf="!user?.adherent">Payer l’adhésion</a>
-        </ng-template>
-      </div>
+      <span *ngIf="user?.adherent; else notAdherent" class="adherent-ok">Adhérent</span>
+      <ng-template #notAdherent>
+        <span class="adherent-ko">Non adhérent</span>
+        <a class="pay-link" href="/users/pay" *ngIf="!user?.adherent">Payer l’adhésion</a>
+      </ng-template>
     </div>
   </div>
 

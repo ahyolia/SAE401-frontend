@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { User } from '../../services/user/user';
-
 
 @Component({
   selector: 'app-compte',
@@ -10,17 +10,23 @@ import { User } from '../../services/user/user';
   templateUrl: './compte.html',
   styleUrl: './compte.css'
 })
-export class Compte {
-  user: any;
+export class Compte implements OnInit {
+  user: any = {};
   reservations: any[] = [];
   dons: any[] = [];
 
-  constructor(private userService: User) {}
+  constructor(private http: HttpClient, public userService: User) {}
 
   ngOnInit() {
-    this.user = this.userService.getUser();
-    // this.reservations = this.userService.getReservations();
-    // this.dons = this.userService.getDons();
+    this.http.get<any>('http://localhost/SAE401/api/users/account', { withCredentials: true })
+      .subscribe({
+        next: res => {
+          this.user = res.user;
+          this.reservations = res.reservations || [];
+          this.dons = res.dons || [];
+        },
+        error: () => { /* ... */ }
+      });
   }
 
   onEdit() {

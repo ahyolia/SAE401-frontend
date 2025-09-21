@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { CatalogueService, CatalogueData, Produit } from '../../services/catalogue/catalogue';
+import { HttpClient } from '@angular/common/http';
 import { PanierService } from '../../services/panier/panier';
 
 @Component({
@@ -13,7 +14,7 @@ import { PanierService } from '../../services/panier/panier';
 })
 export class Catalogue implements OnInit {
   isUserValid = false;
-  isAdherent = false;
+  isAdherent: boolean = false;
   data: CatalogueData | null = null;
   loading = true;
   error: string | null = null;
@@ -23,14 +24,36 @@ export class Catalogue implements OnInit {
   panier: ProduitPanier[] = [];
   message: string = '';
 
-  constructor(private catalogueService: CatalogueService, private panierService: PanierService) {}
+  constructor(
+    private catalogueService: CatalogueService,
+    private panierService: PanierService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
-    this.isUserValid = !!localStorage.getItem('token');
     this.isAdherent = localStorage.getItem('adherent') === '1';
-    // Charge le panier existant
-    this.panier = JSON.parse(localStorage.getItem('panier') || '[]');
+    this.loadPanier();
     this.loadCatalogue();
+    this.checkAdherent();
+  }
+
+  checkAdherent() {
+    this.http.get<any>('http://localhost/SAE401/api/users/edit', { withCredentials: true })
+      .subscribe({
+        next: res => { this.isAdherent = !!res.user?.adherent; },
+        error: () => { this.isAdherent = false; }
+      });
+  }
+
+  loadPanier() {
+    this.panierService.getPanier().subscribe({
+      next: res => {
+        console.log('API panier:', res);
+        this.panier = res.panier || [];
+        this.syncStocks();
+      },
+      error: () => { this.panier = []; }
+    });
   }
 
   loadCatalogue() {
@@ -50,7 +73,6 @@ export class Catalogue implements OnInit {
 
   filterByCategory(categoryId: string | number) {
     this.selectedCategory = categoryId === 'all' ? 'all' : categoryId.toString();
-    // Ne recharge pas le catalogue, on filtre côté client
   }
 
   getQuantity(id: number): number {
@@ -65,29 +87,41 @@ export class Catalogue implements OnInit {
     this.quantities[id] = Math.max(this.getQuantity(id) - 1, 1);
   }
 
-  onAddToCart(produit: ProduitPanier) {
+  syncPanier() {
+    localStorage.setItem('panier', JSON.stringify(this.panier));
+    this.loadPanier();
+  }
+
+  onAddToCart(produit: Produit) {
+    const panierItem: ProduitPanier = {
+      id: produit.id,
+      name: produit.name,
+      image: produit.image,
+      stock: produit.stock,
+      quantity: this.getQuantity(produit.id)
+    };
+
     if (!this.isAdherent) {
       this.message = "Vous devez être adhérent pour ajouter des produits au panier. ";
       this.message += `<a href='/users/pay' style='color:#187171;font-weight:bold;'>Payer l'adhésion</a>`;
       return;
     }
-    if (this.jauge + produit.quantity > 5) {
+    if (this.jauge + panierItem.quantity > 5) {
       this.message = "Vous ne pouvez pas réserver plus de 5 produits par panier.";
       setTimeout(() => this.message = '', 5000);
       return;
     }
-    const existing = this.panier.find(p => p.id === produit.id);
+    // Ajoute ou met à jour l'article dans le panier local
+    const existing = this.panier.find(p => p.id === panierItem.id);
     if (existing) {
-      existing.quantity = Math.min(existing.quantity + produit.quantity, produit.stock || 99);
-      // Optionnel : mettre à jour la catégorie si elle a changé
-      if (produit.category && produit.category !== existing.category) {
-        existing.category = produit.category;
-      }
+      existing.quantity = Math.min(existing.quantity + panierItem.quantity, panierItem.stock || 99);
     } else {
-      this.panier.push({ ...produit });
+      this.panier.push(panierItem);
     }
-    this.syncPanier();
-    this.message = `${produit.name} ajouté au panier !`;
+
+    // Synchronise le panier avec la BDD via l'API
+    this.panierService.savePanier(this.panier).subscribe({ next: () => this.loadPanier() });
+    this.message = `${panierItem.name} ajouté au panier !`;
     setTimeout(() => this.message = '', 5000);
   }
 
@@ -100,25 +134,44 @@ export class Catalogue implements OnInit {
     if (!this.data) return [];
     let produits = this.data.produits;
 
-    // Filtre par catégorie
     if (this.selectedCategory !== 'all') {
       produits = produits.filter(p => p.category_id.toString() === this.selectedCategory);
     }
 
-    // Filtre par recherche
     const term = this.searchTerm.trim().toLowerCase();
     if (term) {
       produits = produits.filter(
         p =>
           p.name.toLowerCase().includes(term) ||
-          (p.description && p.description.toLowerCase().includes(term))
+          (p.description && p.description.toLowerCase().includes(term)
+        )
       );
     }
 
-    // Filtre par stock > 0
     produits = produits.filter(p => p.stock > 0);
 
     return produits;
+  }
+
+  get jauge(): number {
+    return this.panier.reduce((total, item) => total + item.quantity, 0);
+  }
+
+  supprimer(index: number) {
+    this.panier.splice(index, 1);
+    this.syncPanier();
+  }
+
+  syncStocks() {
+    this.http.post<{ [id: number]: number }>('http://localhost/SAE401/panier/stocks', this.panier, { withCredentials: true })
+      .subscribe(stocks => {
+        this.panier.forEach(p => {
+          if (typeof stocks[p.id] !== 'undefined') {
+            p.stock = stocks[p.id];
+            if (p.quantity > p.stock) p.quantity = p.stock;
+          }
+        });
+      });
   }
 }
 

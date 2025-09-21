@@ -34,4 +34,8 @@ export class CatalogueService {
   getByCategory(categoryId: number): Observable<CatalogueData> {
     return this.http.get<CatalogueData>(`${this.config.apiUrl}/catalogue/categories/${categoryId}`);
   }
+
+  getUserStatus() {
+    return this.http.get<any>(`${this.config.apiUrl}/users/edit`, { withCredentials: true });
+  }
 }

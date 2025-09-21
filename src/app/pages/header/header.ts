@@ -10,8 +10,8 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
-export class HeaderComponent {
-  isUserValid: boolean = false;
+export class Header {
+  isUserValid = !!localStorage.getItem('token');
   userPrenom: string | null = null;
   errorMsg: string | null = null;
 

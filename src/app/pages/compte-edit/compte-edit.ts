@@ -59,23 +59,7 @@ export class CompteEdit {
   }
 
   payerAdhesion() {
-    this.loading = true;
-    this.http.post<any>('http://localhost/SAE401/api/users/payProcess', {}, { withCredentials: true })
-      .subscribe({
-        next: res => {
-          if (res.success) {
-            this.successMsg = res.message;
-            this.adherent = true;
-          } else {
-            this.errorMsg = res.message || "Erreur lors du paiement.";
-          }
-          this.loading = false;
-        },
-        error: () => {
-          this.errorMsg = "Erreur lors du paiement.";
-          this.loading = false;
-        }
-      });
+    window.location.href = '/users/pay';
   }
 
   goBack() {

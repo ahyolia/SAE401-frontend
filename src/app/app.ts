@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './pages/header/header';
+import { Header } from './pages/header/header';
 import { FooterComponent } from './pages/footer/footer';
 import { ScrollTopButton } from './pages/topbutton/topbutton';
 import { HttpClient } from '@angular/common/http';
@@ -10,12 +10,13 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, ScrollTopButton],
+  imports: [CommonModule, RouterOutlet, Header, FooterComponent, ScrollTopButton],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App implements OnInit {
   errorMsg: string | null = null;
+  isAdherent: boolean = false;
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -43,5 +44,13 @@ export class App implements OnInit {
           });
       }
     });
+  }
+
+  checkAdherent() {
+    this.http.get<any>('http://localhost/SAE401/api/users/edit', { withCredentials: true })
+      .subscribe({
+        next: (res: any) => { this.isAdherent = !!res.user?.adherent; },
+        error: () => { this.isAdherent = false; }
+      });
   }
 }
