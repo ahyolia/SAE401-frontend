@@ -171,14 +171,13 @@
     }
     .account-main {
         flex-direction: column;
+        align-items: center;
         gap: 2em;
-        align-items: stretch;
     }
-    .account-info-block, .account-orders-block {
-        max-width: 100vw;
-        min-width: unset;
-        width: 100%;
-        margin: 5 auto;
+    .account-board, .account-historiques {
+        width: 95%;
+        max-width: 600px;
+        margin: 0;
     }
 }
 
@@ -397,17 +396,5 @@
     flex-direction: column;
     align-items: center;
     gap: 0.7em;
-  }
-}
-
-@media (max-width: 600px) {
-  .account-board {
-    margin: 1.2em auto;
-    padding: 1em 0.2em 0.7em 0.2em;
-    border-radius: 0;
-  }
-  .btn-compte {
-    font-size: 1em;
-    padding: 0.8em 0;
   }
 }

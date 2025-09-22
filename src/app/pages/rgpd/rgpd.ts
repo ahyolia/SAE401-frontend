@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-mentions-legales',
+  selector: 'app-rgpd',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './mentions-legales.html',
-  styleUrl: './mentions-legales.css'
+  templateUrl: './rgpd.html',
+  styleUrl: './rgpd.css'
 })
-export class MentionsLegales {}
+export class Rgpd {}

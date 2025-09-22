@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-mentions-legales',
+  selector: 'app-cgv',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './mentions-legales.html',
-  styleUrl: './mentions-legales.css'
+  templateUrl: './cgv.html',
+  styleUrl: './cgv.css'
 })
-export class MentionsLegales {}
+export class Cgv {}

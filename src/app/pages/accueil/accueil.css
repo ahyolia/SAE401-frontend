@@ -867,3 +867,16 @@ a:hover {
 .article-link:focus::after {
   width: 100%;
 }
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+  .actions, .etapes-steps, .engagement-cards, .actus-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .produits-epise-cards {
+    gap: 15px;
+  }
+}

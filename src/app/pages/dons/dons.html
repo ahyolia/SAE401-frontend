@@ -23,6 +23,10 @@
 			<option *ngFor="let cat of categories" [value]="cat.id">{{cat.nom}}</option>
 		</select>
 
+    <p class="rgpd-notice">
+      Nous collectons vos données pour gérer votre don. Ce traitement est basé sur votre consentement. Consultez notre <a href="/rgpd" target="_blank">Politique de Confidentialité</a> pour en savoir plus sur vos droits.
+    </p>
+
 		<button type="submit" [disabled]="donForm.invalid">Donner</button>
 	</form>
 </div>

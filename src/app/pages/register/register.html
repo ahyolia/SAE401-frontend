@@ -1,4 +1,3 @@
-
 <div class="inscription-hero">
   <div class="inscription-avatar">
     <img src="/images/user.png" alt="Avatar">
@@ -51,6 +50,9 @@
       <label>Mot de passe :</label>
       <input type="password" name="password_particulier" [(ngModel)]="password_particulier" required>
     </div>
+    <p class="rgpd-notice">
+      Nous collectons vos données pour gérer votre compte. Ce traitement est basé sur votre consentement. Consultez notre <a href="/rgpd" target="_blank">Politique de Confidentialité</a> pour en savoir plus sur vos droits.
+    </p>
     <div style="display: flex; justify-content: center; margin-top: 1.5em;">
       <button type="submit" class="btn-activation" [disabled]="loading">S'inscrire</button>
     </div>

@@ -5,10 +5,10 @@
     </a>
     <span *ngIf="userPrenom" class="nav-user" style="font-weight: bold; color: #55BDC6;">Bonjour {{ userPrenom }} !</span>
   </div>
-  <button id="burger-btn" class="burger" aria-label="Menu">
+  <button id="burger-btn" class="burger" aria-label="Menu" (click)="toggleMenu()">
     <i class="fas fa-bars"></i>
   </button>
-  <nav id="main-nav" class="layout-nav">
+  <nav id="main-nav" class="layout-nav" [class.active]="isMenuOpen">
     <ul>
       <li><a href="/">Accueil</a></li>
       <li><a href="/apropos">À propos</a></li>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -10,44 +10,39 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
-export class Header {
-  isUserValid = !!localStorage.getItem('token');
+export class Header implements OnInit {
+  isUserValid = false;
   userPrenom: string | null = null;
-  errorMsg: string | null = null;
   panierCount: number = 0;
+  isMenuOpen = false; // Ajout de la propriété pour le menu
 
-  constructor(private router: Router, private http: HttpClient) {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        // Force la mise à jour
-        this.isUserValid = !!localStorage.getItem('token');
-        this.userPrenom = localStorage.getItem('prenom');
-      }
-    });
-  }
+  constructor(private router: Router, private http: HttpClient) {}
 
   ngOnInit() {
-    const expiredMsg = localStorage.getItem('sessionExpired');
-    if (expiredMsg) {
-      this.errorMsg = expiredMsg;
-      localStorage.removeItem('sessionExpired');
-    }
+    // Vérifie la connexion à chaque changement de page
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.checkConnexion();
+      }
+    });
+    // Met à jour le compteur du panier
+    window.addEventListener('panierUpdated', () => this.updatePanierCount());
+    this.updatePanierCount();
+  }
 
+  checkConnexion() {
+    // Vérifie la session côté backend
     this.http.get<any>('http://localhost/SAE401/api/users/edit', { withCredentials: true })
       .subscribe({
-        next: res => {},
-        error: err => {
-          if (err.status === 401) {
-            localStorage.clear();
-            window.location.reload();
-          }
+        next: res => {
+          this.isUserValid = !!res.user;
+          this.userPrenom = res.user?.prenom || null;
+        },
+        error: () => {
+          this.isUserValid = false;
+          this.userPrenom = null;
         }
       });
-
-    // Recharge le compteur à chaque navigation ou action
-    this.updatePanierCount();
-
-    window.addEventListener('panierUpdated', () => this.updatePanierCount());
   }
 
   updatePanierCount() {
@@ -66,5 +61,9 @@ export class Header {
   }
   goToLogin() {
     window.location.href = '/login';
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 }

@@ -8,6 +8,7 @@ import { ArticleDetail } from './pages/article-detail/article-detail';
 import { Dons } from './pages/dons/dons';
 import { Benevoles } from './pages/benevoles/benevoles';
 import { NotFound } from './pages/not-found/not-found';
+import { MentionsLegales } from './pages/mentions-legales/mentions-legales';
 
 export const routes: Routes = [
   { path: '', component: Accueil },
@@ -24,5 +25,9 @@ export const routes: Routes = [
   { path: 'compte', loadComponent: () => import('./pages/compte/compte').then(m => m.Compte) },
   { path: 'compte/edit', loadComponent: () => import('./pages/compte-edit/compte-edit').then(m => m.CompteEdit) },
   { path: 'panier', loadComponent: () => import('./pages/panier/panier').then(m => m.PanierComponent) },
+  { path: 'mentions-legales', loadComponent: () => import('./pages/mentions-legales/mentions-legales').then(m => m.MentionsLegales) },
+  { path: 'rgpd', loadComponent: () => import('./pages/rgpd/rgpd').then(m => m.Rgpd) },
+  { path: 'cookies', loadComponent: () => import('./pages/cookies/cookies').then(m => m.Cookies) },
+  { path: 'cgv', loadComponent: () => import('./pages/cgv/cgv').then(m => m.Cgv) },
   { path: '**', component: NotFound }, // <-- toujours en dernier
 ];

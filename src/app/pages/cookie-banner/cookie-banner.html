@@ -1,0 +1,10 @@
+<div *ngIf="showBanner" class="cookie-banner">
+  <p>
+    Ce site utilise des cookies essentiels pour son bon fonctionnement.
+    <a href="/cookies" target="_blank">En savoir plus</a>.
+  </p>
+  <div class="cookie-actions">
+    <button (click)="accept()">Accepter</button>
+    <button (click)="refuse()">Refuser</button>
+  </div>
+</div>

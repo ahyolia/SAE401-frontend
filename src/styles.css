@@ -220,6 +220,56 @@
     }
 }
 
+/* --- Responsive Global --- */
+
+/* Pour les mobiles */
+@media (max-width: 768px) {
+  /* Affiche le bouton burger et cache la navigation principale */
+  header .burger {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  header nav {
+    display: none; /* Cachée par défaut */
+    position: absolute;
+    top: 80px; /* Hauteur du header */
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    flex-direction: column;
+    padding: 1em 0;
+    z-index: 1000;
+  }
+
+  /* Affiche la navigation quand la classe 'active' est présente */
+  header nav.active {
+    display: flex;
+  }
+
+  header nav ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 0;
+  }
+
+  header nav ul li {
+    width: 100%;
+    text-align: center;
+    padding: 1em 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  header nav ul li:last-child {
+    border-bottom: none;
+  }
+}
+
 /* Exemple dans style.css */
 .burger {
   display: none;
@@ -1055,4 +1105,23 @@ a:hover {
     height: 48px;
     font-size: 1.5em;
   }
+}
+
+.rgpd-notice {
+  font-size: 0.8em;
+  color: #777;
+  margin-top: 1.5em;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.rgpd-notice a {
+  color: var(--epise-bleu);
+  text-decoration: underline;
+}
+
+/* Décale le bouton scroll-top quand la bannière cookie est visible */
+body.cookie-banner-visible #btn-top {
+  bottom: 85px; /* Hauteur de la bannière + marge */
+  transition: bottom 0.3s ease-in-out;
 }
