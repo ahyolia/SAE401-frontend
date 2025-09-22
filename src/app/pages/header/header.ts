@@ -14,24 +14,34 @@ export class Header implements OnInit {
   isUserValid = false;
   userPrenom: string | null = null;
   panierCount: number = 0;
-  isMenuOpen = false; // Ajout de la propriété pour le menu
+  isMenuOpen = false;
 
   constructor(private router: Router, private http: HttpClient) {}
 
   ngOnInit() {
-    // Vérifie la connexion à chaque changement de page
+    // 1) Vérifier tout de suite à l’affichage du header
+    this.checkConnexion();
+
+    // 2) Vérifier à chaque navigation
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.checkConnexion();
       }
     });
-    // Met à jour le compteur du panier
+
+    // 3) Écouter l’événement de logout pour basculer immédiatement l’UI
+    window.addEventListener('user:logout', () => {
+      this.isUserValid = false;
+      this.userPrenom = null;
+      this.panierCount = 0;
+    });
+
+    // 4) Mettre à jour le compteur du panier
     window.addEventListener('panierUpdated', () => this.updatePanierCount());
     this.updatePanierCount();
   }
 
   checkConnexion() {
-    // Vérifie la session côté backend
     this.http.get<any>('http://localhost/SAE401/api/users/edit', { withCredentials: true })
       .subscribe({
         next: res => {
@@ -50,20 +60,14 @@ export class Header implements OnInit {
       .subscribe({
         next: res => {
           const panier = res.panier || [];
-          this.panierCount = panier.reduce((total: number, item: { quantity: number }) => total + item.quantity, 0);
+          this.panierCount = panier.reduce((t: number, i: { quantity: number }) => t + i.quantity, 0);
         },
         error: () => { this.panierCount = 0; }
       });
   }
 
-  goToAccount() {
-    window.location.href = '/compte';
-  }
-  goToLogin() {
-    window.location.href = '/login';
-  }
+  goToAccount() { window.location.href = '/compte'; }
+  goToLogin()   { window.location.href = '/login'; }
 
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
+  toggleMenu() { this.isMenuOpen = !this.isMenuOpen; }
 }

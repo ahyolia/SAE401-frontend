@@ -1,6 +1,16 @@
 <app-header></app-header>
-<div *ngIf="errorMsg" class="alert error">{{ errorMsg }}</div>
-<app-cookie-banner></app-cookie-banner>
+
+<!-- Bandeau session expirée -->
+<div *ngIf="errorMsg" class="global-alert" role="alert">
+  {{ errorMsg }}
+</div>
+
 <router-outlet></router-outlet>
+
+<!-- Bouton remonter en haut -->
 <app-scroll-top></app-scroll-top>
+
+<!-- Bannière cookies -->
+<app-cookie-banner></app-cookie-banner>
+
 <app-footer></app-footer>

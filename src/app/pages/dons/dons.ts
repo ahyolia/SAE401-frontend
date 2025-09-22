@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Categories, Category } from '../../services/categories/categories';
 
 @Component({
   selector: 'app-dons',
@@ -9,20 +10,19 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './dons.html',
   styleUrl: './dons.css'
 })
-export class Dons {
-  don = {
-    produit: '',
-    quantite: 1,
-    categorie: ''
-  };
-  categories: any[] = []; // À remplir avec tes vraies catégories
+export class Dons implements OnInit {
+  private categoriesSvc = inject(Categories);
 
-  onSubmit() {
-    // Ajoute ici la logique d’envoi du don à l’API
-    alert('Don envoyé !');
+  don = { produit: '', quantite: 1, categorie: '' };
+  categories: Category[] = [];
+
+  ngOnInit() {
+    this.categoriesSvc.getAll().subscribe({
+      next: (cats) => this.categories = cats,
+      error: () => this.categories = []
+    });
   }
 
-  goBack() {
-    window.history.back();
-  }
+  onSubmit() { alert('Don envoyé !'); }
+  goBack() { window.history.back(); }
 }

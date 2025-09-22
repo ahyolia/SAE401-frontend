@@ -22,29 +22,44 @@ export class App implements OnInit {
   constructor(private router: Router, private http: HttpClient) {}
 
   ngOnInit() {
-    // Vérifie la validité du token à chaque navigation
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
+        // Ne contrôle la session que pour les pages protégées
+        if (!this.isProtected(event.urlAfterRedirects)) return;
+
         this.http.get<any>('http://localhost/SAE401/api/users/edit', { withCredentials: true })
           .subscribe({
-            next: res => {},
+            next: () => {},
             error: err => {
               if (err.status === 401) {
-                localStorage.clear();
-                localStorage.setItem('sessionExpired', 'Votre session a expiré. Veuillez vous reconnecter.');
-                window.location.reload();
+                // Nettoyage ciblé des infos d’auth
+                localStorage.removeItem('token');
+                localStorage.removeItem('prenom');
+                localStorage.removeItem('adherent');
+
+                // Notifie immédiatement le header
+                window.dispatchEvent(new Event('user:logout'));
+
+                // Bandeau d’info
+                this.errorMsg = "Votre session a expiré. Veuillez vous reconnecter.";
+                setTimeout(() => this.errorMsg = null, 5000);
+
+                // Redirige vers /login uniquement si on était sur une page protégée
+                if (this.isProtected(event.urlAfterRedirects) && event.urlAfterRedirects !== '/login') {
+                  this.router.navigateByUrl('/login');
+                }
               }
             }
           });
       }
     });
+  }
 
-    // Affiche le message d'expiration de session si présent
-    const expiredMsg = localStorage.getItem('sessionExpired');
-    if (expiredMsg) {
-      this.errorMsg = expiredMsg;
-      localStorage.removeItem('sessionExpired');
-    }
+  // Pages qui nécessitent d’être connecté
+  private isProtected(url: string): boolean {
+    const path = url.split('?')[0];
+    const protectedPrefixes = ['/compte', '/compte/edit', '/panier', '/users/pay', '/dons', '/benevoles'];
+    return protectedPrefixes.some(p => path.startsWith(p));
   }
 
   checkAdherent() {

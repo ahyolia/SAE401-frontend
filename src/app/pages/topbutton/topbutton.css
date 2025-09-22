@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 32px;
   right: 32px;
-  z-index: 1000;
+  z-index: 1101; /* au-dessus de la bannière cookies (z-index:1000) */
   background: #fff;
   color: #55BDC6;
   border: none;

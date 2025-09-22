@@ -1,0 +1,22 @@
+/* ...existing code... */
+
+/* Bandeau “session expirée” */
+.global-alert {
+  position: fixed;
+  top: 82px;             /* sous le header */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff3cd;   /* jaune pâle (alert info) */
+  color: #614700;
+  border: 1px solid #ffe69c;
+  padding: 10px 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  z-index: 10000;
+  font-weight: 600;
+}
+
+/* Mobile: colle un peu plus au header */
+@media (max-width: 768px) {
+  .global-alert { top: 72px; max-width: 92vw; }
+}
