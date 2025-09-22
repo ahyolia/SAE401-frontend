@@ -8,8 +8,8 @@ Projet d’épicerie solidaire pour étudiants UNC
 
 ## Liens GitHub
 
-- **Backend (MVC PHP)** : [https://github.com/ton-utilisateur/SAE401](https://github.com/ton-utilisateur/SAE401)
-- **Frontend (Angular)** : [https://github.com/ton-utilisateur/SAE401-frontend](https://github.com/ton-utilisateur/SAE401-frontend)
+- **Backend (MVC PHP)** : [https://github.com/ahyolia/SAE401-backend](https://github.com/ahyolia/SAE401-backend)
+- **Frontend (Angular)** : [https://github.com/ahyolia/SAE401-frontend](https://github.com/ahyolia/SAE401-frontend)
 
 ---
 
@@ -28,7 +28,7 @@ Projet d’épicerie solidaire pour étudiants UNC
 
 1. **Cloner le dépôt**
    ```sh
-   git clone https://github.com/ton-utilisateur/SAE401.git
+   git clone https://github.com/ahyolia/SAE401-backend.git
    ```
 
 2. **Placer le dossier dans le répertoire web**
@@ -60,7 +60,7 @@ Projet d’épicerie solidaire pour étudiants UNC
 
 1. **Cloner le dépôt**
    ```sh
-   git clone https://github.com/ton-utilisateur/SAE401-frontend.git
+   git clone https://github.com/ahyolia/SAE401-frontend.git
    cd SAE401-frontend
    ```
 
