@@ -35,7 +35,7 @@ Projet d’épicerie solidaire pour étudiants UNC
    - Exemple : `C:\wamp64\www\SAE401` ou `/var/www/html/SAE401`
 
 3. **Créer la base de données**
-   - Importer le fichier SQL fourni (`database.sql`) dans phpMyAdmin ou via la ligne de commande.
+   - Importer le fichier SQL fourni (`sae401_epise.sql`) dans phpMyAdmin ou via la ligne de commande.
 
 4. **Configurer la connexion MySQL**
    - Modifier `app/Database.php` avec vos identifiants MySQL.
