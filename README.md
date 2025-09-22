@@ -1,72 +1,135 @@
-# AngularEpise
+# EPISE – SAE401
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.1.
+Projet d’épicerie solidaire pour étudiants UNC  
+**Backend : PHP MVC**  
+**Frontend : Angular**
 
-## Development server
+---
 
-To start a local development server, run:
+## Liens GitHub
 
-```bash
-ng serve
-```
+- **Backend (MVC PHP)** : [https://github.com/ton-utilisateur/SAE401](https://github.com/ton-utilisateur/SAE401)
+- **Frontend (Angular)** : [https://github.com/ton-utilisateur/SAE401-frontend](https://github.com/ton-utilisateur/SAE401-frontend)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## Installation et déploiement
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 1. Backend (MVC PHP)
 
-```bash
-ng generate component component-name
-```
+#### Prérequis
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- PHP >= 7.4
+- Serveur Apache ou Nginx
+- MySQL/MariaDB
+- [WAMP](https://www.wampserver.com/) ou [XAMPP](https://www.apachefriends.org/) recommandé pour Windows
 
-```bash
-ng generate --help
-```
+#### Installation
 
-## Building
+1. **Cloner le dépôt**
+   ```sh
+   git clone https://github.com/ton-utilisateur/SAE401.git
+   ```
 
-To build the project run:
+2. **Placer le dossier dans le répertoire web**
+   - Exemple : `C:\wamp64\www\SAE401` ou `/var/www/html/SAE401`
 
-```bash
-ng build
-```
+3. **Créer la base de données**
+   - Importer le fichier SQL fourni (`database.sql`) dans phpMyAdmin ou via la ligne de commande.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+4. **Configurer la connexion MySQL**
+   - Modifier `app/Database.php` avec vos identifiants MySQL.
 
-## Running unit tests
+5. **Lancer le serveur**
+   - Démarrer Apache et MySQL via WAMP/XAMPP.
+   - Accéder à [http://localhost/SAE401](http://localhost/SAE401)
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+### 2. Frontend (Angular)
 
-## Running end-to-end tests
+#### Prérequis
 
-For end-to-end (e2e) testing, run:
+- [Node.js](https://nodejs.org/) >= 18
+- [Angular CLI](https://angular.io/cli) :  
+  ```sh
+  npm install -g @angular/cli
+  ```
 
-```bash
-ng e2e
-```
+#### Installation
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+1. **Cloner le dépôt**
+   ```sh
+   git clone https://github.com/ton-utilisateur/SAE401-frontend.git
+   cd SAE401-frontend
+   ```
 
-## Additional Resources
+2. **Installer les dépendances**
+   ```sh
+   npm install
+   ```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+3. **Configurer l’API**
+   - Vérifier le fichier `src/environments/environment.ts` pour l’URL du backend.
 
-## Password reset
+4. **Lancer le serveur Angular**
+   ```sh
+   ng serve
+   ```
+   - Accéder à [http://localhost:4200](http://localhost:4200)
 
-If you forgot your password, follow these steps:
+---
 
-1. On the login page, click **"Forgot password?"**.
-2. Enter the email address associated with your account and click **"Send"**.
-3. If an account exists, you will receive an email with a password reset link.
-   - **In local development**, the link is available in the `mail_debug.txt` file in the backend project.
-4. Click the link received (or copy it from `mail_debug.txt`), then enter and confirm your new password.
-5. Submit the form. You can now log in with your new password.
+## Déploiement en production
 
-If you encounter any issues, please contact the site administrator.
+- **Backend** : Déployer le dossier sur un hébergement PHP/MySQL (OVH, IONOS, etc.)
+- **Frontend** :  
+  ```sh
+  ng build --configuration production
+  ```
+  - Déployer le contenu du dossier `dist/` sur un hébergement web (Netlify, Vercel, OVH, etc.)
+
+---
+
+## Accès Backoffice
+
+- Accéder à `/backoffice` sur le backend pour l’administration.
+
+---
+
+## Contact
+
+Pour toute question, contactez [camhdyo@gmail.com](mailto:camhdyo@gmail.com).
+
+---
+
+## Fonctionnalités principales
+
+### Frontend (Angular)
+
+- **Catalogue produits** : consultation des produits disponibles, filtrage par catégorie.
+- **Inscription et connexion** : création de compte étudiant ou particulier, authentification sécurisée.
+- **Réservation de panier** : sélection et réservation de produits pour les adhérents UNC.
+- **Paiement de l’adhésion** : paiement en ligne de l’adhésion annuelle (200 F XFP) pour accéder aux paniers.
+- **Gestion du compte** : modification des informations personnelles, suivi des réservations et de l’adhésion.
+- **Dons** : formulaire pour proposer des dons (produits, vêtements, etc.).
+- **Bénévolat** : formulaire pour devenir bénévole et participer à l’organisation.
+- **Actualités** : affichage des articles et informations de l’épicerie.
+- **Mentions légales, RGPD, CGV, gestion des cookies** : pages informatives accessibles en pied de page.
+- **Internationalisation (I18N)** : site disponible en français et anglais, bouton de changement de langue.
+- **Responsive design** : interface adaptée à tous les écrans (mobile, tablette, desktop).
+
+### Backend (MVC PHP)
+
+- **API REST** : endpoints sécurisés pour toutes les opérations (produits, panier, utilisateurs, dons, etc.).
+- **Gestion des utilisateurs** : création, modification, suppression, gestion des rôles (étudiant, particulier, administrateur).
+- **Gestion des produits et catégories** : ajout, modification, suppression via le backoffice.
+- **Gestion des réservations** : suivi des paniers et réservations des adhérents.
+- **Gestion des dons et bénévoles** : validation et suivi des propositions reçues.
+- **Backoffice administrateur** : interface dédiée pour la gestion des contenus, des utilisateurs et des stocks.
+- **Sécurité** : vérification des tokens, gestion des sessions, protection des routes sensibles.
+- **Logs et debug** : outils pour le suivi des erreurs et des opérations.
+
+---
+
+**N’oubliez pas d’adapter les liens GitHub et les paramètres selon votre configuration réelle.**
